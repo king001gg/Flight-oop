@@ -3,11 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <title>航空公司订票管理系统</title>
+    <link rel="stylesheet" href="css/base.css">
 </head>
 <body>
-<h1>航空公司订票管理系统</h1>
-<p>后端已启动，前端页面将在下一阶段接入。</p>
-<p><a href="/api/health">检查 /api/health</a></p>
+<p class="muted" style="padding:24px">正在跳转…</p>
+<noscript>请启用 JavaScript 以使用系统。</noscript>
+<script type="module">
+    import { redirectHomeIfLoggedIn } from './js/auth.js';
+    if (!redirectHomeIfLoggedIn()) {
+        location.replace('login.html');
+    }
+</script>
 </body>
 </html>

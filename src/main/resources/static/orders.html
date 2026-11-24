@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <title>订单中心 · 航空公司订票管理系统</title>
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/pages.css">
+</head>
+<body data-page="orders" data-title="订单中心" data-subtitle="查询订单、查看详情与退票">
+<div class="layout">
+    <aside class="sidebar" id="sidebar"></aside>
+    <div class="main-wrap">
+        <header class="topbar" id="topbar"></header>
+        <main class="page">
+            <div class="page-head">
+                <div>
+                    <h1 id="ordersTitle">订单中心</h1>
+                    <p id="ordersSubtitle">查看订单状态、航班信息与退票操作</p>
+                </div>
+                <div class="page-actions">
+                    <span class="badge badge-info" id="orderMeta">共 0 条</span>
+                </div>
+            </div>
+
+            <form class="filters" id="orderFilterForm">
+                <div class="field">
+                    <label for="orderKeyword">关键词</label>
+                    <input class="input" id="orderKeyword" placeholder="订单号 / 姓名 / 证件号 / 航班号">
+                </div>
+                <div class="field">
+                    <label for="orderStatus">订单状态</label>
+                    <select class="select" id="orderStatus">
+                        <option value="">全部状态</option>
+                        <option value="BOOKED">已订</option>
+                        <option value="REFUNDED">已退</option>
+                    </select>
+                </div>
+                <div class="filters-actions">
+                    <button class="btn btn-primary" type="submit">筛选订单</button>
+                    <button class="btn btn-outline" type="button" id="resetOrders">重置</button>
+                </div>
+            </form>
+
+            <div class="table-wrap">
+                <div class="table-scroll">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>订单号</th>
+                            <th>航班信息</th>
+                            <th>客户</th>
+                            <th class="text-center">数量</th>
+                            <th class="text-right">金额</th>
+                            <th>下单时间</th>
+                            <th>状态</th>
+                            <th class="text-right">操作</th>
+                        </tr>
+                        </thead>
+                        <tbody id="orderRows"></tbody>
+                    </table>
+                </div>
+                <div class="pagination" id="orderPagination"></div>
+            </div>
+        </main>
+    </div>
+</div>
+<div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+<div class="modal-backdrop" id="orderDetailModal">
+    <div class="modal modal-lg" role="dialog" aria-modal="true">
+        <div class="modal-header">
+            <h2>订单详情</h2>
+            <button class="icon-btn" data-close aria-label="关闭">✕</button>
+        </div>
+        <div class="modal-body" id="orderDetailBody"></div>
+        <div class="modal-footer">
+            <button class="btn btn-outline" data-close>关闭</button>
+            <button class="btn btn-danger hidden" id="detailRefundBtn">退票</button>
+        </div>
+    </div>
+</div>
+
+<script type="module" src="js/pages/orders.js"></script>
+</body>
+</html>

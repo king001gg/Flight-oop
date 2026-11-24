@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <title>机票预订 · 航空公司订票管理系统</title>
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/pages.css">
+</head>
+<body data-page="booking" data-title="机票预订" data-subtitle="确认航班、填写乘客信息并提交订单">
+<div class="layout">
+    <aside class="sidebar" id="sidebar"></aside>
+    <div class="main-wrap">
+        <header class="topbar" id="topbar"></header>
+        <main class="page">
+            <div class="page-head">
+                <div>
+                    <h1>机票预订</h1>
+                    <p>选择航班、确认余票与价格，提交后生成订单</p>
+                </div>
+                <div class="page-actions">
+                    <a class="btn btn-outline" href="flights.html">返回航班查询</a>
+                </div>
+            </div>
+
+            <div class="flight-picker">
+                <div class="field">
+                    <label for="flightSelect">选择航班</label>
+                    <select class="select" id="flightSelect"></select>
+                </div>
+                <button class="btn btn-outline" type="button" id="refreshFlights">刷新航班</button>
+            </div>
+
+            <div class="booking-grid">
+                <section id="flightSummary" aria-live="polite"></section>
+
+                <section class="card booking-card">
+                    <h2 style="font-size:18px;margin-bottom:4px">填写订票信息</h2>
+                    <p class="muted small mb-2" id="bookingHint">客户信息将用于生成订单</p>
+
+                    <form id="bookingForm" class="stack">
+                        <div id="customerSelf" class="meta-grid"></div>
+
+                        <div id="adminCustomerBlock" class="stack hidden">
+                            <div class="field">
+                                <label for="adminCustomerId">客户证件号</label>
+                                <div class="flex gap-1">
+                                    <input class="input" id="adminCustomerId" placeholder="输入证件号后查询客户">
+                                    <button class="btn btn-outline" type="button" id="lookupCustomer">查询</button>
+                                </div>
+                            </div>
+                            <div id="adminCustomerResult" class="meta-box">
+                                <span>客户信息</span>
+                                <b>尚未查询</b>
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label for="quantity">订票数量</label>
+                            <input class="input" id="quantity" type="number" min="1" value="1">
+                        </div>
+
+                        <div class="price-lines">
+                            <div class="price-line"><span>实付单价</span><strong id="unitPrice">¥0.00</strong></div>
+                            <div class="price-line"><span>订票数量</span><strong id="qtyText">1 张</strong></div>
+                            <div class="price-line total"><span>总金额</span><strong id="totalPrice">¥0.00</strong></div>
+                        </div>
+
+                        <p class="small muted" id="seatHint"></p>
+
+                        <div class="booking-actions">
+                            <button class="btn btn-primary" type="submit" id="bookBtn">确认订票</button>
+                            <a class="btn btn-outline" href="flights.html">取消</a>
+                        </div>
+                    </form>
+                </section>
+            </div>
+        </main>
+    </div>
+</div>
+<div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+<div class="modal-backdrop" id="alternativesModal">
+    <div class="modal" role="dialog" aria-modal="true">
+        <div class="modal-header">
+            <h2>余票不足 · 推荐航班</h2>
+            <button class="icon-btn" data-close aria-label="关闭">✕</button>
+        </div>
+        <div class="modal-body" id="alternativesBody"></div>
+        <div class="modal-footer">
+            <button class="btn btn-outline" data-close>关闭</button>
+        </div>
+    </div>
+</div>
+
+<script type="module" src="js/pages/booking.js"></script>
+</body>
+</html>

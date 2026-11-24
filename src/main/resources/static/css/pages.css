@@ -1,0 +1,765 @@
+/* ── 登录 / 注册 ───────────────────────────────────────── */
+.auth-page {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1.05fr .95fr;
+    background: #fff;
+}
+
+.auth-hero {
+    position: relative;
+    overflow: hidden;
+    padding: 56px 64px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    color: #fff;
+    background:
+        radial-gradient(circle at 82% 12%, rgba(38, 198, 218, .45), transparent 34%),
+        radial-gradient(circle at 12% 88%, rgba(66, 165, 245, .35), transparent 36%),
+        linear-gradient(135deg, #0d47a1 0%, #1565c0 48%, #0b74a6 100%);
+}
+
+.auth-hero::before,
+.auth-hero::after {
+    content: "";
+    position: absolute;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, .13);
+}
+
+.auth-hero::before {
+    width: 420px;
+    height: 420px;
+    right: -120px;
+    top: -120px;
+}
+
+.auth-hero::after {
+    width: 260px;
+    height: 260px;
+    left: -90px;
+    bottom: -90px;
+}
+
+.auth-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    position: relative;
+    z-index: 1;
+}
+
+.auth-brand .brand-mark {
+    width: 46px;
+    height: 46px;
+    border-radius: 14px;
+    background: rgba(255, 255, 255, .16);
+    box-shadow: none;
+    backdrop-filter: blur(8px);
+}
+
+.auth-brand .brand-mark svg {
+    width: 24px;
+    height: 24px;
+}
+
+.auth-brand-name {
+    font-size: 19px;
+    font-weight: 800;
+    letter-spacing: .02em;
+}
+
+.auth-brand-sub {
+    font-size: 11px;
+    color: rgba(255, 255, 255, .7);
+    letter-spacing: .1em;
+}
+
+.auth-copy {
+    position: relative;
+    z-index: 1;
+    max-width: 540px;
+    margin: 40px 0;
+}
+
+.auth-copy h1 {
+    font-size: clamp(28px, 3.4vw, 44px);
+    line-height: 1.16;
+    letter-spacing: -.02em;
+    margin-bottom: 16px;
+}
+
+.auth-copy p {
+    color: rgba(255, 255, 255, .78);
+    font-size: 15px;
+    line-height: 1.9;
+    max-width: 460px;
+}
+
+.auth-features {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+    margin-top: 28px;
+    max-width: 520px;
+}
+
+.auth-feature {
+    padding: 14px;
+    border-radius: 14px;
+    background: rgba(255, 255, 255, .1);
+    border: 1px solid rgba(255, 255, 255, .12);
+    backdrop-filter: blur(8px);
+}
+
+.auth-feature strong {
+    display: block;
+    font-size: 13px;
+    margin-bottom: 3px;
+}
+
+.auth-feature span {
+    font-size: 11px;
+    color: rgba(255, 255, 255, .68);
+    line-height: 1.5;
+}
+
+.auth-footnote {
+    position: relative;
+    z-index: 1;
+    font-size: 12px;
+    color: rgba(255, 255, 255, .55);
+}
+
+.auth-panel {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    background: linear-gradient(180deg, #f8fafc, #fff);
+}
+
+.auth-card {
+    width: 100%;
+    max-width: 440px;
+    padding: 38px 36px;
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    box-shadow: var(--shadow);
+}
+
+.auth-title {
+    font-size: 24px;
+    margin-bottom: 6px;
+}
+
+.auth-sub {
+    color: var(--muted);
+    font-size: 13px;
+    margin-bottom: 26px;
+}
+
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.auth-form .btn {
+    height: 44px;
+    margin-top: 4px;
+}
+
+.auth-demo {
+    margin-top: 22px;
+    padding: 14px 16px;
+    border-radius: 14px;
+    background: var(--surface-2);
+    border: 1px dashed #cdd8ea;
+    font-size: 12px;
+    color: var(--muted);
+}
+
+.auth-demo strong {
+    color: var(--text);
+    display: block;
+    margin-bottom: 8px;
+}
+
+.demo-accounts {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.demo-account {
+    flex: 1;
+    min-width: 150px;
+    padding: 8px 10px;
+    border-radius: 10px;
+    background: #fff;
+    border: 1px solid var(--border);
+    cursor: pointer;
+    text-align: left;
+    transition: .15s;
+}
+
+.demo-account:hover {
+    border-color: #9ec3f5;
+    background: #f7faff;
+}
+
+.demo-account b {
+    display: block;
+    color: var(--text);
+    font-size: 12px;
+}
+
+.demo-account span {
+    font-size: 11px;
+    color: var(--muted);
+}
+
+.auth-switch {
+    margin-top: 22px;
+    text-align: center;
+    font-size: 13px;
+    color: var(--muted);
+}
+
+.auth-alert {
+    display: none;
+    padding: 10px 12px;
+    border-radius: 10px;
+    background: var(--danger-bg);
+    color: var(--danger);
+    font-size: 12px;
+}
+
+.auth-alert.show {
+    display: block;
+}
+
+@media (max-width: 960px) {
+    .auth-page {
+        grid-template-columns: 1fr;
+    }
+
+    .auth-hero {
+        min-height: 320px;
+        padding: 34px 28px;
+    }
+
+    .auth-copy {
+        margin: 22px 0 8px;
+    }
+
+    .auth-copy h1 {
+        font-size: 28px;
+    }
+
+    .auth-copy p {
+        font-size: 13px;
+    }
+
+    .auth-features, .auth-footnote {
+        display: none;
+    }
+
+    .auth-panel {
+        padding: 26px 18px 40px;
+    }
+
+    .auth-card {
+        padding: 28px 22px;
+        box-shadow: var(--shadow-sm);
+    }
+}
+
+/* ── 订票 ───────────────────────────────────────────────── */
+.booking-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(320px, .85fr);
+    gap: 18px;
+    align-items: start;
+}
+
+.flight-summary {
+    position: relative;
+    overflow: hidden;
+    padding: 24px;
+    border-radius: 20px;
+    color: #fff;
+    background:
+        radial-gradient(circle at 92% 0%, rgba(38, 198, 218, .35), transparent 36%),
+        linear-gradient(135deg, #0d47a1, #1565c0 58%, #0b74a6);
+    box-shadow: 0 18px 40px rgba(13, 71, 161, .24);
+}
+
+.flight-summary::after {
+    content: "✈";
+    position: absolute;
+    right: 18px;
+    bottom: -18px;
+    font-size: 110px;
+    line-height: 1;
+    color: rgba(255, 255, 255, .08);
+}
+
+.flight-summary .route {
+    font-size: 26px;
+    font-weight: 800;
+    letter-spacing: .02em;
+    margin: 4px 0 8px;
+}
+
+.flight-summary .meta {
+    color: rgba(255, 255, 255, .78);
+    font-size: 13px;
+}
+
+.flight-summary .flight-times {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin: 22px 0 18px;
+    position: relative;
+    z-index: 1;
+}
+
+.flight-summary .time-block {
+    text-align: center;
+}
+
+.flight-summary .time-block b {
+    display: block;
+    font-size: 24px;
+    line-height: 1.2;
+}
+
+.flight-summary .time-block span {
+    font-size: 11px;
+    color: rgba(255, 255, 255, .65);
+}
+
+.flight-summary .time-line {
+    flex: 1;
+    height: 1px;
+    background: rgba(255, 255, 255, .3);
+    position: relative;
+}
+
+.flight-summary .time-line::after {
+    content: "→";
+    position: absolute;
+    right: -2px;
+    top: -12px;
+    color: rgba(255, 255, 255, .8);
+}
+
+.flight-summary .summary-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    position: relative;
+    z-index: 1;
+}
+
+.summary-chip {
+    padding: 4px 10px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, .14);
+    border: 1px solid rgba(255, 255, 255, .14);
+    font-size: 12px;
+    color: #fff;
+}
+
+.booking-card {
+    padding: 22px;
+}
+
+.price-lines {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 16px;
+    border-radius: 14px;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    margin-top: 14px;
+}
+
+.price-line {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 13px;
+    color: var(--muted);
+}
+
+.price-line strong {
+    color: var(--text);
+    font-size: 14px;
+}
+
+.price-line.total {
+    padding-top: 12px;
+    border-top: 1px dashed #d4dcea;
+    font-size: 14px;
+}
+
+.price-line.total strong {
+    font-size: 24px;
+    color: var(--primary);
+    letter-spacing: -.02em;
+}
+
+.seat-bar {
+    height: 8px;
+    border-radius: 999px;
+    background: #e8eef8;
+    overflow: hidden;
+    margin: 8px 0 6px;
+}
+
+.seat-bar .seat-fill {
+    height: 100%;
+    border-radius: inherit;
+    background: linear-gradient(90deg, var(--success), #3ccf91);
+}
+
+.seat-bar .seat-fill.full {
+    background: linear-gradient(90deg, var(--danger), #ef6b6b);
+}
+
+.booking-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 18px;
+}
+
+.booking-actions .btn {
+    flex: 1;
+}
+
+.flight-picker {
+    display: flex;
+    gap: 12px;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    padding: 16px;
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-sm);
+    margin-bottom: 18px;
+}
+
+.flight-picker .field {
+    flex: 1;
+    min-width: 220px;
+}
+
+/* ── 报表 ───────────────────────────────────────────────── */
+.report-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 18px;
+    align-items: start;
+}
+
+.chart-card {
+    padding: 18px 20px 8px;
+}
+
+.chart-card h3 {
+    font-size: 15px;
+    margin-bottom: 4px;
+}
+
+.chart-wrap {
+    position: relative;
+    width: 100%;
+    height: 300px;
+}
+
+.chart-wrap canvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+.chart-legend {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    font-size: 12px;
+    color: var(--muted);
+    padding: 0 4px 12px;
+}
+
+.legend-dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    margin-right: 6px;
+    background: var(--primary-2);
+}
+
+.report-result {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 12px;
+    margin-top: 14px;
+}
+
+.report-stat {
+    padding: 14px;
+    border-radius: 14px;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    text-align: center;
+}
+
+.report-stat span {
+    display: block;
+    font-size: 12px;
+    color: var(--muted);
+}
+
+.report-stat b {
+    display: block;
+    font-size: 22px;
+    margin-top: 3px;
+    letter-spacing: -.02em;
+}
+
+.report-grid .table {
+    min-width: 0;
+}
+
+.report-grid .table th,
+.report-grid .table td {
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size: 12px;
+}
+
+/* ── 管理员表格内输入 ──────────────────────────────────── */
+.table-input {
+    width: 92px;
+    height: 32px;
+    padding: 0 8px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: #fff;
+    font-size: 12px;
+}
+
+.table-input:focus {
+    outline: none;
+    border-color: #7fb0f0;
+    box-shadow: 0 0 0 2px rgba(30, 136, 229, .12);
+}
+
+.route-group {
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: #fff;
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+    margin-bottom: 16px;
+}
+
+.route-group-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 14px 18px;
+    background: linear-gradient(90deg, #eef5ff, #f8fbff);
+    border-bottom: 1px solid var(--border);
+}
+
+.route-group-head h3 {
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.route-group-head h3::before {
+    content: "✈";
+    color: var(--primary-2);
+    font-size: 15px;
+}
+
+.route-group .table-wrap {
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+}
+
+.fare-hint {
+    font-size: 12px;
+    color: var(--muted);
+}
+
+/* ── 用户 / 客户 / 订单详情 ───────────────────────────── */
+.avatar-sm {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: inline-grid;
+    place-items: center;
+    background: var(--info-bg);
+    color: var(--primary);
+    font-size: 12px;
+    font-weight: 700;
+    margin-right: 8px;
+    vertical-align: middle;
+}
+
+.customer-orders-modal .table-wrap {
+    box-shadow: none;
+}
+
+.stack {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.meta-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.meta-box {
+    padding: 12px 14px;
+    border-radius: 12px;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+}
+
+.meta-box span {
+    display: block;
+    font-size: 11px;
+    color: var(--muted);
+}
+
+.meta-box b {
+    display: block;
+    margin-top: 2px;
+    font-size: 14px;
+}
+
+.alternative-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 14px;
+}
+
+.alternative-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 12px 14px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: #fff;
+    transition: .15s;
+}
+
+.alternative-item:hover {
+    border-color: #9ec3f5;
+    background: #f7faff;
+}
+
+.alternative-item .flight-no {
+    font-weight: 800;
+    color: var(--primary);
+}
+
+.alternative-item .alt-meta {
+    font-size: 12px;
+    color: var(--muted);
+}
+
+/* ── 其它 ───────────────────────────────────────────────── */
+.divider {
+    height: 1px;
+    background: var(--border);
+    margin: 18px 0;
+}
+
+.pill-tabs {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.pill-tab {
+    height: 34px;
+    padding: 0 14px;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    background: #fff;
+    color: var(--muted);
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.pill-tab.active {
+    background: var(--info-bg);
+    border-color: #bcd7f8;
+    color: var(--primary);
+}
+
+.status-dot {
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--success);
+    margin-right: 6px;
+}
+
+.status-dot.off {
+    background: var(--danger);
+}
+
+@media (max-width: 1100px) {
+    .booking-grid, .report-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .report-result {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 640px) {
+    .meta-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .report-result {
+        grid-template-columns: 1fr;
+    }
+
+    .booking-actions {
+        flex-direction: column;
+    }
+
+    .flight-summary .route {
+        font-size: 21px;
+    }
+}

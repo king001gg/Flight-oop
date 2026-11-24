@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <title>报表打印 · 航空公司订票管理系统</title>
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/pages.css">
+</head>
+<body data-page="reports" data-title="报表打印" data-subtitle="航线时段统计与月度售票报表">
+<div class="layout">
+    <aside class="sidebar" id="sidebar"></aside>
+    <div class="main-wrap">
+        <header class="topbar" id="topbar"></header>
+        <main class="page">
+            <div class="page-head">
+                <div>
+                    <h1>统计报表</h1>
+                    <p>汇总航线飞行次数、载客人数、客座率与月度售票情况，可打印</p>
+                </div>
+                <div class="page-actions">
+                    <button class="btn btn-primary" id="printBtn">打印报表</button>
+                </div>
+            </div>
+
+            <div class="print-header">
+                <h1>航空公司订票管理系统 · 统计报表</h1>
+                <p class="muted" id="printDate"></p>
+            </div>
+
+            <div class="kpi-grid">
+                <div class="kpi">
+                    <div class="kpi-label">航班总数</div>
+                    <div class="kpi-value" id="kpiFlights">—</div>
+                    <div class="kpi-sub">系统中的航班记录</div>
+                </div>
+                <div class="kpi alt">
+                    <div class="kpi-label">有效订单</div>
+                    <div class="kpi-value" id="kpiOrders">—</div>
+                    <div class="kpi-sub">当前状态为已订</div>
+                </div>
+                <div class="kpi warn">
+                    <div class="kpi-label">载客人数</div>
+                    <div class="kpi-value" id="kpiPassengers">—</div>
+                    <div class="kpi-sub">有效订单的订票数量</div>
+                </div>
+                <div class="kpi danger">
+                    <div class="kpi-label">净销售额</div>
+                    <div class="kpi-value" id="kpiRevenue">—</div>
+                    <div class="kpi-sub">有效订单金额合计</div>
+                </div>
+            </div>
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h2>航线时段统计</h2>
+                    <span class="muted small">城市都留空表示全部航线</span>
+                </div>
+                <div class="card-body">
+                    <form class="filters" id="routeStatsForm" style="margin-bottom:14px;box-shadow:none">
+                        <div class="field">
+                            <label for="statsStartCity">出发城市</label>
+                            <input class="input" id="statsStartCity" placeholder="留空=全部">
+                        </div>
+                        <div class="field">
+                            <label for="statsEndCity">到达城市</label>
+                            <input class="input" id="statsEndCity" placeholder="留空=全部">
+                        </div>
+                        <div class="field">
+                            <label for="statsFrom">开始日期</label>
+                            <input class="input" id="statsFrom" type="date" required>
+                        </div>
+                        <div class="field">
+                            <label for="statsTo">结束日期</label>
+                            <input class="input" id="statsTo" type="date" required>
+                        </div>
+                        <div class="filters-actions">
+                            <button class="btn btn-primary" type="submit">开始统计</button>
+                        </div>
+                    </form>
+
+                    <div class="report-result">
+                        <div class="report-stat">
+                            <span>飞行次数</span>
+                            <b id="routeFlightCount">—</b>
+                        </div>
+                        <div class="report-stat">
+                            <span>提供座位</span>
+                            <b id="routeSeats">—</b>
+                        </div>
+                        <div class="report-stat">
+                            <span>载客人数</span>
+                            <b id="routePassengers">—</b>
+                        </div>
+                        <div class="report-stat">
+                            <span>客座率</span>
+                            <b id="routeOccupancy">—</b>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="report-grid">
+                <div class="card">
+                    <div class="card-header">
+                        <h2>月度售票统计</h2>
+                        <span class="muted small">售票按下单月，退票按退票月</span>
+                    </div>
+                    <div class="table-wrap" style="box-shadow:none;border:0;border-radius:0">
+                        <div class="table-scroll">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th>月份</th>
+                                    <th class="text-right">售票张数</th>
+                                    <th class="text-right">退票张数</th>
+                                    <th class="text-right">净售票</th>
+                                    <th class="text-right">净销售额</th>
+                                </tr>
+                                </thead>
+                                <tbody id="monthlyRows"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card chart-card">
+                    <h3>月度净售票趋势</h3>
+                    <p class="muted small">单位：张</p>
+                    <div class="chart-legend">
+                        <span><i class="legend-dot"></i>净售票</span>
+                    </div>
+                    <div class="chart-wrap">
+                        <canvas id="monthlyChart" aria-label="月度净售票柱状图"></canvas>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+<div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+<script type="module" src="js/pages/reports.js"></script>
+</body>
+</html>

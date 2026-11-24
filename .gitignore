@@ -37,3 +37,6 @@ target/
 ### Runtime data ###
 data/
 
+### Playwright CLI ###
+.playwright-cli/
+

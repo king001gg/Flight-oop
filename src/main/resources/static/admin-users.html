@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <title>用户管理 · 航空公司订票管理系统</title>
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/pages.css">
+</head>
+<body data-page="admin-users" data-title="用户管理" data-subtitle="维护登录账号、角色与客户关联">
+<div class="layout">
+    <aside class="sidebar" id="sidebar"></aside>
+    <div class="main-wrap">
+        <header class="topbar" id="topbar"></header>
+        <main class="page">
+            <div class="page-head">
+                <div>
+                    <h1>用户管理</h1>
+                    <p>管理员可管理账号、角色和密码；不能删除自己或最后一个管理员</p>
+                </div>
+                <div class="page-actions">
+                    <button class="btn btn-primary" id="addUserBtn">新增用户</button>
+                </div>
+            </div>
+
+            <form class="filters" id="userFilter">
+                <div class="field">
+                    <label for="userKeyword">关键词</label>
+                    <input class="input" id="userKeyword" placeholder="用户名 / 显示名 / 证件号">
+                </div>
+                <div class="filters-actions">
+                    <button class="btn btn-primary" type="submit">搜索</button>
+                    <button class="btn btn-outline" type="button" id="resetUserFilter">重置</button>
+                </div>
+            </form>
+
+            <div class="table-wrap">
+                <div class="table-scroll">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>用户</th>
+                            <th>角色</th>
+                            <th>关联客户证件号</th>
+                            <th class="text-right">操作</th>
+                        </tr>
+                        </thead>
+                        <tbody id="userRows"></tbody>
+                    </table>
+                </div>
+                <div class="pagination" id="userPagination"></div>
+            </div>
+        </main>
+    </div>
+</div>
+<div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+<div class="modal-backdrop" id="userFormModal">
+    <div class="modal" role="dialog" aria-modal="true">
+        <div class="modal-header">
+            <h2 id="userModalTitle">新增用户</h2>
+            <button class="icon-btn" data-close aria-label="关闭">✕</button>
+        </div>
+        <form id="userForm">
+            <div class="modal-body">
+                <div class="form-grid">
+                    <div class="field">
+                        <label for="userUsername">用户名 *</label>
+                        <input class="input" id="userUsername" required placeholder="3~30 位登录名">
+                    </div>
+                    <div class="field" id="passwordField">
+                        <label for="userPassword">初始密码 *</label>
+                        <input class="input" id="userPassword" type="password" minlength="6" autocomplete="new-password"
+                               placeholder="至少 6 位">
+                    </div>
+                    <div class="field">
+                        <label for="userDisplayName">显示名 *</label>
+                        <input class="input" id="userDisplayName" required>
+                    </div>
+                    <div class="field">
+                        <label for="userRole">角色 *</label>
+                        <select class="select" id="userRole">
+                            <option value="ADMIN">管理员</option>
+                            <option value="CUSTOMER">客户</option>
+                        </select>
+                    </div>
+                    <div class="field span-2" id="customerIdField">
+                        <label for="userCustomerId">关联客户证件号</label>
+                        <input class="input" id="userCustomerId" placeholder="客户角色必须关联已存在的客户">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" type="button" data-close>取消</button>
+                <button class="btn btn-primary" type="submit" id="saveUserBtn">保存</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="modal-backdrop" id="passwordModal">
+    <div class="modal modal-sm" role="dialog" aria-modal="true">
+        <div class="modal-header">
+            <h2>重置密码</h2>
+            <button class="icon-btn" data-close aria-label="关闭">✕</button>
+        </div>
+        <form id="passwordForm">
+            <div class="modal-body">
+                <p class="muted small mb-2" id="passwordTarget"></p>
+                <div class="field">
+                    <label for="newPassword">新密码 *</label>
+                    <input class="input" id="newPassword" type="password" minlength="6" autocomplete="new-password"
+                           placeholder="至少 6 位" required>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" type="button" data-close>取消</button>
+                <button class="btn btn-primary" type="submit" id="savePasswordBtn">重置密码</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script type="module" src="js/pages/admin-users.js"></script>
+</body>
+</html>

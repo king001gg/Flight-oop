@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <title>航班管理 · 航空公司订票管理系统</title>
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/pages.css">
+</head>
+<body data-page="admin-flights" data-title="航班管理" data-subtitle="维护航班、时刻、票价与座位">
+<div class="layout">
+    <aside class="sidebar" id="sidebar"></aside>
+    <div class="main-wrap">
+        <header class="topbar" id="topbar"></header>
+        <main class="page">
+            <div class="page-head">
+                <div>
+                    <h1>航班管理</h1>
+                    <p>新增、修改、删除航班；已有订单的航班不能删除或修改航班号</p>
+                </div>
+                <div class="page-actions">
+                    <button class="btn btn-primary" id="addFlightBtn">新增航班</button>
+                </div>
+            </div>
+
+            <form class="filters" id="flightAdminFilter">
+                <div class="field">
+                    <label for="flightKeyword">关键词</label>
+                    <input class="input" id="flightKeyword" placeholder="航班号 / 城市 / 航空公司">
+                </div>
+                <div class="filters-actions">
+                    <button class="btn btn-primary" type="submit">搜索</button>
+                    <button class="btn btn-outline" type="button" id="resetFlightFilter">重置</button>
+                </div>
+            </form>
+
+            <div class="table-wrap">
+                <div class="table-scroll">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>航班</th>
+                            <th>日期 / 时刻</th>
+                            <th>航线</th>
+                            <th>机型</th>
+                            <th>票价 / 折扣</th>
+                            <th>余票 / 总座</th>
+                            <th>航空公司</th>
+                            <th class="text-right">操作</th>
+                        </tr>
+                        </thead>
+                        <tbody id="adminFlightRows"></tbody>
+                    </table>
+                </div>
+                <div class="pagination" id="adminFlightPagination"></div>
+            </div>
+        </main>
+    </div>
+</div>
+<div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+<div class="modal-backdrop" id="flightFormModal">
+    <div class="modal modal-lg" role="dialog" aria-modal="true">
+        <div class="modal-header">
+            <h2 id="flightModalTitle">新增航班</h2>
+            <button class="icon-btn" data-close aria-label="关闭">✕</button>
+        </div>
+        <form id="flightForm">
+            <input type="hidden" id="editingFlightId">
+            <div class="modal-body">
+                <div class="form-grid">
+                    <div class="field">
+                        <label for="flightId">航班编号 *</label>
+                        <input class="input" id="flightId" required placeholder="如 CA1234">
+                    </div>
+                    <div class="field">
+                        <label for="date">执飞日期 *</label>
+                        <input class="input" id="date" type="date" required>
+                    </div>
+                    <div class="field">
+                        <label for="takeOffTime">起飞时间 *</label>
+                        <input class="input" id="takeOffTime" type="time" required>
+                    </div>
+                    <div class="field">
+                        <label for="durationMinutes">飞行时长（分钟）*</label>
+                        <input class="input" id="durationMinutes" type="number" min="1" required>
+                    </div>
+                    <div class="field">
+                        <label for="startCity">出发城市 *</label>
+                        <input class="input" id="startCity" required>
+                    </div>
+                    <div class="field">
+                        <label for="endCity">到达城市 *</label>
+                        <input class="input" id="endCity" required>
+                    </div>
+                    <div class="field">
+                        <label for="planeModel">飞机型号 *</label>
+                        <input class="input" id="planeModel" required>
+                    </div>
+                    <div class="field">
+                        <label for="price">票价（元）*</label>
+                        <input class="input" id="price" type="number" min="0" step="0.01" required>
+                    </div>
+                    <div class="field">
+                        <label for="discount">折扣（0~1）*</label>
+                        <input class="input" id="discount" type="number" min="0.01" max="1" step="0.01" required>
+                    </div>
+                    <div class="field">
+                        <label for="totalSeats">总座位数 *</label>
+                        <input class="input" id="totalSeats" type="number" min="1" required>
+                    </div>
+                    <div class="field">
+                        <label for="airline">航空公司 *</label>
+                        <input class="input" id="airline" required>
+                    </div>
+                    <div class="field">
+                        <label for="onTimeRate">准点率（%）*</label>
+                        <input class="input" id="onTimeRate" type="number" min="0" max="100" step="0.1" required>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" type="button" data-close>取消</button>
+                <button class="btn btn-primary" type="submit" id="saveFlightBtn">保存</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script type="module" src="js/pages/admin-flights.js"></script>
+</body>
+</html>

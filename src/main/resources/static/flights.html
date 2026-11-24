@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <title>航班查询 · 航空公司订票管理系统</title>
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/pages.css">
+</head>
+<body data-page="flights" data-title="航班查询" data-subtitle="按城市、日期与余票筛选航班">
+<div class="layout">
+    <aside class="sidebar" id="sidebar"></aside>
+    <div class="main-wrap">
+        <header class="topbar" id="topbar"></header>
+        <main class="page">
+            <div class="page-head">
+                <div>
+                    <h1>航班查询</h1>
+                    <p>输入出发/到达城市或日期，查看起降时间、票价、折扣与满仓状态</p>
+                </div>
+                <div class="page-actions">
+                    <span class="badge badge-info" id="resultMeta">共 0 个航班</span>
+                </div>
+            </div>
+
+            <form class="filters" id="flightFilterForm">
+                <div class="field">
+                    <label for="flightNo">航班号</label>
+                    <input class="input" id="flightNo" name="flightNo" placeholder="如 CA1234">
+                </div>
+                <div class="field">
+                    <label for="fromCity">出发城市</label>
+                    <input class="input" id="fromCity" name="from" placeholder="如 桂林">
+                </div>
+                <div class="field">
+                    <label for="toCity">到达城市</label>
+                    <input class="input" id="toCity" name="to" placeholder="如 西安">
+                </div>
+                <div class="field">
+                    <label for="flightDate">执飞日期</label>
+                    <input class="input" id="flightDate" name="date" type="date">
+                </div>
+                <label class="checkbox">
+                    <input type="checkbox" id="onlyAvailable" name="onlyAvailable"> 只看有票
+                </label>
+                <div class="filters-actions">
+                    <button class="btn btn-primary" type="submit">查询航班</button>
+                    <button class="btn btn-outline" type="button" id="clearFilters">重置</button>
+                </div>
+            </form>
+
+            <div class="table-wrap">
+                <div class="table-scroll">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>航班</th>
+                            <th>日期</th>
+                            <th>起降时刻</th>
+                            <th>航线</th>
+                            <th>机型</th>
+                            <th>票价</th>
+                            <th>余票</th>
+                            <th>状态</th>
+                            <th class="text-right">操作</th>
+                        </tr>
+                        </thead>
+                        <tbody id="flightRows"></tbody>
+                    </table>
+                </div>
+                <div class="pagination" id="flightPagination"></div>
+            </div>
+        </main>
+    </div>
+</div>
+<div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+<div class="modal-backdrop" id="flightDetailModal">
+    <div class="modal modal-lg" role="dialog" aria-modal="true">
+        <div class="modal-header">
+            <h2>航班详情</h2>
+            <button class="icon-btn" data-close aria-label="关闭">✕</button>
+        </div>
+        <div class="modal-body" id="flightDetailBody"></div>
+        <div class="modal-footer">
+            <button class="btn btn-outline" data-close>关闭</button>
+            <button class="btn btn-primary" id="detailBookBtn">订票</button>
+        </div>
+    </div>
+</div>
+
+<script type="module" src="js/pages/flights.js"></script>
+</body>
+</html>

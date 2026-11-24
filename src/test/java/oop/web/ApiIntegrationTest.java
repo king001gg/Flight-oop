@@ -76,6 +76,33 @@ class ApiIntegrationTest {
 
     @Test
     @Order(3)
+    void registerCreatesCustomerAndUser() throws Exception {
+        String payload = """
+                {"username":"newuser","password":"123456","name":"新客户",
+                 "idNumber":"TESTREG001","phone":"13900000000","email":"new@example.com"}
+                """;
+        MvcResult result = mockMvc.perform(post("/api/auth/register")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(payload))
+                .andExpect(status().isOk())
+                .andReturn();
+        String token = read(result).path("data").path("token").asText();
+        assertTrue(!token.isBlank());
+
+        JsonNode me = getJson(get("/api/auth/me"), token);
+        assertEquals("CUSTOMER", me.path("data").path("role").asText());
+
+        JsonNode customer = getJson(get("/api/customers/me"), token);
+        assertEquals("新客户", customer.path("data").path("name").asText());
+
+        mockMvc.perform(post("/api/auth/register")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(payload))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    @Order(4)
     void queryAndStatistics() throws Exception {
         String admin = login("admin", "admin123");
 
@@ -103,7 +130,7 @@ class ApiIntegrationTest {
     }
 
     @Test
-    @Order(4)
+    @Order(5)
     void fullFlightReturnsAlternatives() throws Exception {
         String customer = login("zhangwei", "123456");
 
@@ -122,7 +149,7 @@ class ApiIntegrationTest {
     }
 
     @Test
-    @Order(5)
+    @Order(6)
     void bookAndRefundRestoresSeats() throws Exception {
         String customer = login("zhangwei", "123456");
         int before = getJson(get("/api/flights/CA1234"), customer)
@@ -153,7 +180,7 @@ class ApiIntegrationTest {
     }
 
     @Test
-    @Order(6)
+    @Order(7)
     void customerCannotTouchOthersOrder() throws Exception {
         String customer = login("zhangwei", "123456");
         mockMvc.perform(get("/api/orders/ORD20261110090000-001")
@@ -162,7 +189,7 @@ class ApiIntegrationTest {
     }
 
     @Test
-    @Order(7)
+    @Order(8)
     void adminCrudConstraints() throws Exception {
         String admin = login("admin", "admin123");
 
@@ -229,6 +256,17 @@ class ApiIntegrationTest {
                                 {"price":520,"discount":0.75}
                                 """))
                 .andExpect(status().isOk());
+
+        MvcResult bulk = mockMvc.perform(post("/api/admin/fares/bulk")
+                        .header("Authorization", bearer(admin))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {"startCity":"桂林","endCity":"广州","discount":0.7}
+                                """))
+                .andExpect(status().isOk())
+                .andReturn();
+        assertEquals(1, read(bulk).path("data").path("updatedFlights").asInt());
+
         mockMvc.perform(delete("/api/admin/flights/T9999")
                         .header("Authorization", bearer(admin)))
                 .andExpect(status().isOk());

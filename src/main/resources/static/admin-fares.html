@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <title>票价管理 · 航空公司订票管理系统</title>
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/pages.css">
+</head>
+<body data-page="admin-fares" data-title="票价管理" data-subtitle="按航班或航线维护原价与折扣">
+<div class="layout">
+    <aside class="sidebar" id="sidebar"></aside>
+    <div class="main-wrap">
+        <header class="topbar" id="topbar"></header>
+        <main class="page">
+            <div class="page-head">
+                <div>
+                    <h1>票价管理</h1>
+                    <p>修改单个航班的价格/折扣，或按航线批量设置折扣；实付价自动重算</p>
+                </div>
+            </div>
+
+            <form class="filters" id="bulkFareForm">
+                <div class="field">
+                    <label for="bulkStartCity">出发城市</label>
+                    <input class="input" id="bulkStartCity" required placeholder="如 桂林">
+                </div>
+                <div class="field">
+                    <label for="bulkEndCity">到达城市</label>
+                    <input class="input" id="bulkEndCity" required placeholder="如 西安">
+                </div>
+                <div class="field">
+                    <label for="bulkDiscount">统一折扣（0~1）</label>
+                    <input class="input" id="bulkDiscount" type="number" min="0.01" max="1" step="0.01"
+                           required placeholder="如 0.9">
+                </div>
+                <div class="filters-actions">
+                    <button class="btn btn-primary" type="submit" id="bulkFareBtn">按航线批量设置</button>
+                </div>
+            </form>
+
+            <div id="fareGroups"></div>
+        </main>
+    </div>
+</div>
+<div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+<script type="module" src="js/pages/admin-fares.js"></script>
+</body>
+</html>

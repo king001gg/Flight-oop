@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <title>客户管理 · 航空公司订票管理系统</title>
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/pages.css">
+</head>
+<body data-page="admin-customers" data-title="客户管理" data-subtitle="维护客户资料与查看客户订单">
+<div class="layout">
+    <aside class="sidebar" id="sidebar"></aside>
+    <div class="main-wrap">
+        <header class="topbar" id="topbar"></header>
+        <main class="page">
+            <div class="page-head">
+                <div>
+                    <h1>客户管理</h1>
+                    <p>证件号是客户主键；存在订单的客户不能删除</p>
+                </div>
+                <div class="page-actions">
+                    <button class="btn btn-primary" id="addCustomerBtn">新增客户</button>
+                </div>
+            </div>
+
+            <form class="filters" id="customerFilter">
+                <div class="field">
+                    <label for="customerKeyword">关键词</label>
+                    <input class="input" id="customerKeyword" placeholder="姓名 / 证件号 / 电话 / 邮箱">
+                </div>
+                <div class="filters-actions">
+                    <button class="btn btn-primary" type="submit">搜索</button>
+                    <button class="btn btn-outline" type="button" id="resetCustomerFilter">重置</button>
+                </div>
+            </form>
+
+            <div class="table-wrap">
+                <div class="table-scroll">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>客户</th>
+                            <th>电话</th>
+                            <th>邮箱</th>
+                            <th>等级</th>
+                            <th>创建时间</th>
+                            <th class="text-right">操作</th>
+                        </tr>
+                        </thead>
+                        <tbody id="customerRows"></tbody>
+                    </table>
+                </div>
+                <div class="pagination" id="customerPagination"></div>
+            </div>
+        </main>
+    </div>
+</div>
+<div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+<div class="modal-backdrop" id="customerFormModal">
+    <div class="modal" role="dialog" aria-modal="true">
+        <div class="modal-header">
+            <h2 id="customerModalTitle">新增客户</h2>
+            <button class="icon-btn" data-close aria-label="关闭">✕</button>
+        </div>
+        <form id="customerForm">
+            <div class="modal-body">
+                <div class="form-grid">
+                    <div class="field span-2">
+                        <label for="customerId">证件号 *</label>
+                        <input class="input" id="customerId" required placeholder="身份证 / 护照 / 单位证件号">
+                    </div>
+                    <div class="field">
+                        <label for="customerName">姓名 *</label>
+                        <input class="input" id="customerName" required>
+                    </div>
+                    <div class="field">
+                        <label for="customerPhone">电话</label>
+                        <input class="input" id="customerPhone" type="tel">
+                    </div>
+                    <div class="field">
+                        <label for="customerEmail">邮箱</label>
+                        <input class="input" id="customerEmail" type="email">
+                    </div>
+                    <div class="field">
+                        <label for="customerLevel">会员等级</label>
+                        <select class="select" id="customerLevel">
+                            <option value="NORMAL">普通</option>
+                            <option value="SILVER">银卡</option>
+                            <option value="GOLD">金卡</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" type="button" data-close>取消</button>
+                <button class="btn btn-primary" type="submit" id="saveCustomerBtn">保存</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="modal-backdrop" id="customerOrdersModal">
+    <div class="modal modal-lg customer-orders-modal" role="dialog" aria-modal="true">
+        <div class="modal-header">
+            <h2 id="customerOrdersTitle">客户订单</h2>
+            <button class="icon-btn" data-close aria-label="关闭">✕</button>
+        </div>
+        <div class="modal-body" id="customerOrdersBody"></div>
+        <div class="modal-footer">
+            <button class="btn btn-outline" data-close>关闭</button>
+        </div>
+    </div>
+</div>
+
+<script type="module" src="js/pages/admin-customers.js"></script>
+</body>
+</html>
